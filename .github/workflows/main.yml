@@ -1,0 +1,30 @@
+name: ci
+on:
+  push:
+
+jobs:
+    build-and-push:
+        runs-on: ubuntu-latest
+        steps:
+
+        - name: Copy Repo Files
+          uses: actions/checkout@v2
+
+        - name: Use Node.js
+          uses: actions/setup-node@v1
+          with:
+            node-version: '12.x'
+
+        - name: Install dependencies
+          run: |
+            gem update --system
+            npm install
+            npm run build
+
+        - name: Build main image and push it to GitHub Packages
+          uses: docker/build-push-action@v1
+          with:
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+            registry: docker.pkg.github.com
+            dockerfile: ./Dockerfile
