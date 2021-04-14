@@ -27,5 +27,5 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
             registry: docker.pkg.github.com
             dockerfile: ./Dockerfile
-            repository: aidmax/fleet-app
+            repository: aidmax/fleet-app/hello
             tags: latest
